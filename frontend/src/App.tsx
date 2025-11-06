@@ -5,9 +5,10 @@
 import DashBoard from './pages/DashBoard'
 import Students from './pages/Students'
 import Login from './pages/Login';
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout';
 import About from './pages/About';
+import type { JSX } from 'react';
 
 
 const PrivateRoute = ({children}:{children:JSX.Element}) =>{
