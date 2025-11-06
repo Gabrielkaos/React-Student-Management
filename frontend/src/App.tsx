@@ -1,28 +1,36 @@
 
 
-import SideBar from './components/SideBar'
-import Header from './components/Header'
-import DashBoard from './pages/DashBoard'
-import About from './pages/About'
-import Students from './pages/Students'
 
-import { Routes, Route } from 'react-router-dom'
+
+import DashBoard from './pages/DashBoard'
+import Students from './pages/Students'
+import Login from './pages/Login';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import Layout from './components/Layout';
+import About from './pages/About';
+
+
+const PrivateRoute = ({children}:{children:JSX.Element}) =>{
+  const token = localStorage.getItem("token")
+  return  token ? children : <Navigate to="/"/>
+}
 
 export default function App() {
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      <SideBar />
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-        <Header />
-        <main style={{ flex: 1, padding: "1rem", overflowY: "auto" }}>
-          <Routes>
-            <Route path="/" element={<DashBoard />} />
-            <Route path="/students" element={<Students />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </main>
-      </div>
-    </div>
+      <Routes>
+        <Route path="/" element={<Login/>}/>
+        
+        <Route path="/"
+        element={<PrivateRoute>
+          <Layout />
+        </PrivateRoute>}
+        >
+          <Route path="/dashboard" element={<DashBoard/>}/>
+          <Route path="/students" element={<Students/>}/>
+          <Route path="/about" element={<About/>}/>
+        </Route>
+        
+      </Routes>
   );
 }
 
